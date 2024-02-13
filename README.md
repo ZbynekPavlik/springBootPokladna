@@ -1,4 +1,4 @@
-# Informační systém pokladny - Spring boot webová aplikace
+# Informační systém pokladny - Spring Boot webová aplikace
 
 Webová aplikace představuje informační systém pokladny.
 
