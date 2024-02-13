@@ -87,6 +87,7 @@ Je to z důvodu archivace dat a zpětné dohledatelnosti (například pro účet
 1. Vytvořit databázi - skript pro vytvoření database/create/createDatabase.sql
 2. Vytvořit tabulky v databázi - skript pro vytvoření database/create/createTables.sql
 3. (Nepovinné) import ukázkových dat (mají zaporné indexy) - database/data
+   (Import v pořadí: 1. usersExport - tabulka users 2. authoritiesExport - tabulka authorities 3. salesExport - tabulka sales 4. transactionExport - tabulka financialtransaction)
 4. Napojení na databazi v projektu - src/main/resources/application.properties
    
 ### Přednastavené napojení na databázi
