@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>Nová tržba</title>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-5">
+            <div class="card mb-10">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Detail tržby</h3></div>
+                <div class="card-body">
+                    <div class="row">
+
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>ID tržby:</strong></td>
+                                <td><span th:text="${sale.idSale}"></span></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Prodávané zboží:</strong></td>
+                                <td><span th:text="${sale.soldGoods}"></span></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Částka:</strong></td>
+                                <td><span th:text="${sale.amount}"></span></td>
+                            </tr>
+
+
+                            <tr>
+                                <td><strong>Uživatel id:</strong></td>
+                                <td>
+                                    <span th:if="${sale.user == null}">null</span>
+                                    <span th:if="${sale.user != null}" th:text="${sale.user.idUser}"></span>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Jméno:</strong></td>
+                                <td>
+                                    <span th:if="${sale.user == null}">null</span>
+                                    <span th:if="${sale.user != null}" th:text="${sale.user.username}"></span>
+
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                        <!-- Modré tlačítko místo odkazu -->
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary" onclick="window.history.back()">Zpět</button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

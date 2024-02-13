@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a aria-controls="collapseSales" aria-expanded="false" class="nav-link collapsed" data-bs-target="#collapseSales" data-bs-toggle="collapse"
+   href="#">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    Tržby
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+</a>
+<div aria-labelledby="headingOne" class="collapse" data-bs-parent="#sidenavAccordion" id="collapseSales">
+    <nav class="sb-sidenav-menu-nested nav">
+        <a class="nav-link" href="/sales/index/0/20">Přehled tržeb</a>
+        <a class="nav-link" href="/sales/show">Zobrazit tržbu</a>
+        <a class="nav-link" href="/sales/create">Nová tržba</a>
+        <a class="nav-link" href="/sales/delete" sec:authorize="hasRole('ROLE_ADMIN')">Smazat tržbu</a>
+        <a class="nav-link" href="/sales/deleteAll" sec:authorize="hasRole('ROLE_ADMIN')">Smazat všechny tržby</a>
+
+
+    </nav>
+</div>
+
+<a aria-controls="collapseTransactions" aria-expanded="false" class="nav-link collapsed" data-bs-target="#collapseTransactions"
+   data-bs-toggle="collapse" href="#">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    Transakce
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+</a>
+<div aria-labelledby="headingOne" class="collapse" data-bs-parent="#sidenavAccordion" id="collapseTransactions">
+    <nav class="sb-sidenav-menu-nested nav">
+        <!-- Zde můžete přidat další položky pro transakce -->
+        <a class="nav-link" href="/transactions/index/0/20">Přehled transakcí</a>
+        <a class="nav-link" href="/transactions/show">Zobrazit transakci</a>
+        <a class="nav-link" href="/transactions/deposit" sec:authorize="hasRole('ROLE_ADMIN')">Vložit peníze</a>
+        <a class="nav-link" href="/transactions/withdraw" sec:authorize="hasRole('ROLE_ADMIN')">Vybrat peníze</a>
+        <a class="nav-link" href="/transactions/currentBalance">Aktuální zůstatek</a>
+        <a class="nav-link" href="/transactions/delete" sec:authorize="hasRole('ROLE_ADMIN')">Smazat transakci</a>
+        <a class="nav-link" href="/transactions/deleteAll" sec:authorize="hasRole('ROLE_ADMIN')">Smazat všechny
+            transakce</a>
+    </nav>
+</div>
+
+<a aria-controls="collapseUsers" aria-expanded="false" class="nav-link collapsed" data-bs-target="#collapseUsers"
+   data-bs-toggle="collapse" href="#" sec:authorize="hasRole('ROLE_ADMIN')">
+    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+    Uživatelé
+    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+</a>
+<div aria-labelledby="headingOne" class="collapse" data-bs-parent="#sidenavAccordion" id="collapseUsers"
+     sec:authorize="hasRole('ROLE_ADMIN')">
+    <nav class="sb-sidenav-menu-nested nav">
+        <!-- Zde můžete přidat další položky pro uživatele -->
+        <a class="nav-link" href="/users/index/0/20">Přehled uživatelů</a>
+        <a class="nav-link" href="/users/show">Zobrazit uživatele</a>
+        <a class="nav-link" href="/users/create">Nový uživatel</a>
+        <a class="nav-link" href="/users/update">Upravit uživatele</a>
+        <a class="nav-link" href="/users/delete">Smazat uživatele</a>
+        <a class="nav-link" href="/users/deleteAll">Smazat všechny uživatele</a>
+    </nav>
+</div>
+
+</body>
+</html>

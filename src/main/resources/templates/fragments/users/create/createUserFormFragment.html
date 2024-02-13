@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title></title>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-5">
+            <div class="card mb-10">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Přidat nového uživatele</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" th:action="@{/users/create}" th:object="${user}">
+                        <div class="form-group">
+                            <label for="username">Jméno:</label>
+                            <input class="form-control" id="username" required th:field="*{username}" type="text">
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label for="password">Heslo:</label>
+                            <input class="form-control" id="password" required th:field="*{password}" type="password">
+                        </div>
+
+
+                        <div class="form-group mt-2">
+                            <label for="enabled">Povolen:</label>
+                            <select class="form-select" id="enabled" required th:field="*{enabled}">
+                                <option selected value="1">Ano</option>
+                                <option value="0"> Ne</option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-2">
+                            <label for="role">Role:</label>
+                            <select class="form-select" id="role" required th:field="*{role}">
+                                <option selected value="EMPLOYEE">Zaměstnanec</option>
+                                <option value="ADMIN">Admin</option>
+                            </select>
+                        </div>
+
+                        <div class="mt-4 mb-2" style="text-align: center;">
+                            <button class="btn btn-primary" type="submit">Vytvořit uživatele</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("enabled").value = "1"; // Nastavení výchozí hodnoty na "Ano"
+    });
+</script>
+</body>
+</html>

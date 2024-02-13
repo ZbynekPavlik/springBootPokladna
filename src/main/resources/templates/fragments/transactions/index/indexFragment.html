@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/security" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>Nová tržba</title>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+</head>
+
+<body>
+<div class="container mb-5">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-12">
+            <div class="card mb-10">
+                <div class="card-header">
+
+                    <div class="row justify-content-center">
+                        <div class="col text-center">
+                            <h3 class="font-weight-light my-4">Přehled transakce</h3>
+                            <p>Aktualní zůstatek v pokladně: <span th:text="${balance}"></span></p>
+                        </div>
+                    </div>
+
+                    <div class="col text-center">
+                        <a class="btn btn-primary" th:href="@{/}">Přehled pokladna</a>
+
+                        <a class="btn btn-success" th:href="@{/sales/create}">Přidat novou tržbu</a>
+
+
+                        <a class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"
+                           th:href="@{/transactions/deposit}">Vložit peníze</a>
+                        <a class="btn btn-success" sec:authorize="hasRole('ROLE_ADMIN')"
+                           th:href="@{/transactions/withdraw}">Vybrat peníze</a>
+                        <form class="d-inline" id="deleteAllForm" method="post" sec:authorize="hasRole('ROLE_ADMIN')"
+                              th:action="@{/transactions/deleteAll}">
+                            <button class="btn btn-danger" onclick="confirmDelete()" type="button">Odstranit všechny
+                                transakce
+                            </button>
+                        </form>
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="text-center">ID transakce</th>
+                                <th class="text-center">Popis</th>
+                                <th class="text-center">Částka</th>
+                                <th class="text-center">Stav před tržbou</th>
+                                <th class="text-center">Stav po tržbě</th>
+                                <th class="text-center">Tržba ID</th>
+                                <th class="text-center">Uživatel ID</th>
+                                <th class="text-center">Smazáno</th>
+                                <!-- Add more columns as needed -->
+                                <th class="text-center">Akce</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="transaction : ${transactions}">
+                                <td class="text-center" th:text="${transaction.idTransaction}"></td>
+                                <td class="text-left" th:text="${transaction.description}"></td>
+                                <td class="text-center" th:text="${transaction.amount}"></td>
+                                <td class="text-center" th:text="${transaction.balanceBefore}"></td>
+                                <td class="text-center" th:text="${transaction.balanceAfter}"></td>
+                                <td class="text-center">
+                                    <span th:if="${transaction.sale == null}">null</span>
+                                    <span th:if="${transaction.sale != null}"
+                                          th:text="${transaction.sale.idSale}"></span>
+                                </td>
+                                <td class="text-center">
+                                    <span th:if="${transaction.user == null}">null</span>
+                                    <span th:if="${transaction.user != null}"
+                                          th:text="${transaction.user.idUser}"></span>
+
+                                </td>
+
+                                <td class="text-center">
+                                    <span th:if="${transaction.deleted == true}">Ano</span>
+                                    <span th:if="${transaction.deleted == false}">Ne</span>
+
+                                </td>
+                                <!-- Add more columns as needed -->
+
+                                <td class="text-center">
+                                    <a class="btn btn-primary btn-sm"
+                                       th:href="@{/transactions/show/{id}(id=${transaction.idTransaction})}">Detail</a>
+                                    <form class="d-inline"
+                                          method="post"
+                                          onsubmit="return confirm('Opravdu chcete smazat tuto transakci?');" sec:authorize="hasRole('ROLE_ADMIN')" th:action="@{/transactions/delete/{id}(id=${transaction.idTransaction})}"
+                                          th:if="${transaction.deleted == false}">
+                                        <input name="_method" type="hidden" value="delete"/>
+                                        <button class="btn btn-danger btn-sm" type="submit">Odstranit</button>
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+                        <!-- Stránkování -->
+                        <div class="col text-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <!-- přidáním třídy justify-content-center -->
+                                    <li th:classappend="${currentPage == 0}? 'disabled'"><a
+                                            class="page-link mx-2"
+                                            th:href="@{/transactions/index/0/{size}(size=${size})}">První</a></li>
+                                    <li th:classappend="${currentPage == 0}? 'disabled'"><a
+                                            class="page-link mx-1"
+                                            th:href="@{/transactions/index/{page}/{size}(page=${page-1}, size=${size})}">Předchozí</a></li>
+                                    <li th:classappend="${currentPage == page}? 'active'"
+                                        th:each="page : ${#numbers.sequence(0, totalPages - 1)}"><a
+                                            class="page-link"
+                                            th:href="@{/transactions/index/{page}/{size}(page=${page}, size=${size})}" th:text="${page + 1}"></a></li>
+                                    <li th:classappend="${currentPage == totalPages - 1}? 'disabled'"><a
+                                            class="page-link mx-1"
+                                            th:href="@{/transactions/index/{page}/{size}(page=${page+1}, size=${size})}">Další</a></li>
+                                    <li th:classappend="${currentPage == totalPages - 1}? 'disabled'"><a
+                                            class="page-link mx-2"
+                                            th:href="@{/transactions/index/{page}/{size}(page=${totalPages-1}, size=${size})}">Poslední</a></li>
+                                </ul>
+                            </nav>
+
+                            <p>Zobrazuje se <span th:text="${firstElement}"></span> až <span
+                                    th:text="${lastElement}"></span> z celkového počtu <span
+                                    th:text="${totalElements}"></span></p>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        if (confirm("Opravdu chcete smazat všechny transakce?")) {
+            document.getElementById("deleteAllForm").submit();
+        }
+    }
+
+
+</script>
+
+</body>
+
+</html>

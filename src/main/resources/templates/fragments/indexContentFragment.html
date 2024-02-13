@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/security" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="/assets/charts/chartAreaBalanceBefore.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<main>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="container-fluid px-4">
+                    <div>
+                        <h1 class="mt-4 text-center">Informační systém pokladny</h1>
+                    </div>
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body text-center">Tržby</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-center" href="/sales/index/0/20">Přejít
+                                        na Přehled</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body text-center">Transakce</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-center"
+                                       href="/transactions/index/0/20">Přejít na Přehled</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6" sec:authorize="hasRole('ROLE_ADMIN')">
+                            <div class="card bg-primary text-white mb-4">
+                                <div class="card-body text-center">Uživatelé</div>
+                                <div class="card-footer d-flex align-items-center justify-content-between">
+                                    <a class="small text-white stretched-link text-center" href="/users/index/0/20">Přejít
+                                        na Přehled</a>
+                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <div class="row justify-content-center mt-2">
+                <div class="col-lg-12">
+                    <div class="card mb-10">
+                        <div class="card-header">
+                            <div class="row justify-content-center align-items-center">
+                                <!-- Použití flexboxu pro zarovnání ikony a nadpisu -->
+
+                                <div class="text-center"> <!-- Středně zarovnaný nadpis -->
+                                    <h3 class="my-2"><i class="fas fa-chart-area me-1"></i> Graf vývoje stavu peněz v
+                                        pokladně</h3>
+                                    <p>za posledních 20 transakcí</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <canvas height="20" id="AreaChartBalanceBefore" width="100%"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mb-5">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-12">
+                    <div class="card mb-10">
+                        <div class="card-header">
+                            <div class="row justify-content-center">
+                                <div class="col text-center">
+                                    <h3 class="font-weight-light my-4">Přehled posledních 20 transakcí</h3>
+                                    <p>Aktualní zůstatek v pokladně: <span th:text="${balance}"></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="row">
+
+
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">ID transakce</th>
+                                        <th class="text-center">Popis</th>
+                                        <th class="text-center">Částka</th>
+                                        <th class="text-center">Stav před tržbou</th>
+                                        <th class="text-center">Stav po tržbě</th>
+                                        <th class="text-center">Tržba ID</th>
+                                        <th class="text-center">Uživatel ID</th>
+                                        <th class="text-center">Smazáno</th>
+                                        <!-- Add more columns as needed -->
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="transaction : ${transactions}">
+                                        <td class="text-center" th:text="${transaction.idTransaction}"></td>
+                                        <td class="text-left" th:text="${transaction.description}"></td>
+                                        <td class="text-center" th:text="${transaction.amount}"></td>
+                                        <td class="text-center" th:text="${transaction.balanceBefore}"></td>
+                                        <td class="text-center" th:text="${transaction.balanceAfter}"></td>
+                                        <td class="text-center">
+                                            <span th:if="${transaction.sale == null}">null</span>
+                                            <span th:if="${transaction.sale != null}"
+                                                  th:text="${transaction.sale.idSale}"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span th:if="${transaction.user == null}">null</span>
+                                            <span th:if="${transaction.user != null}"
+                                                  th:text="${transaction.user.idUser}"></span>
+
+                                        </td>
+
+                                        <td class="text-center">
+                                            <span th:if="${transaction.deleted == true}">Ano</span>
+                                            <span th:if="${transaction.deleted == false}">Ne</span>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

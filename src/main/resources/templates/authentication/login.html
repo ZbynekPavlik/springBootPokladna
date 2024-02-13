@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>Login - Pokladna</title>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+</head>
+<body class="bg-primary">
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Přihlášení do
+                                pokladny</h3></div>
+                            <div class="card-body">
+                                <form action="" method="POST" th:action="@{/authenticateTheUser}">
+
+
+                                    <p>
+                                        Jméno: <input class="form-control" name="username" type="text"/>
+                                    </p>
+
+                                    <p>
+                                        Heslo: <input class="form-control" name="password" type="password"/>
+                                    </p>
+
+                                    <div th:if="${param.error}">
+                                        <p>Zadali jste špatné přihlašovací údaje. Zkuste zadat údaje znova.</p>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <input class="btn btn-primary" type="submit" value="Přihlásit se"/>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="layoutAuthentication_footer">
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-center small">
+                    <div class="text-muted">Copyright &copy; Informační systém pokladny - Zbyněk Pavlík 2024</div>
+
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/scripts.js"></script>
+</body>
+</html>

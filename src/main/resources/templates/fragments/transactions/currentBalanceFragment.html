@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <title>Nová tržba</title>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-5">
+            <div class="card mb-10">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Aktualní zůstatek v
+                    pokladně</h3></div>
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>Aktualní zůstatek:</strong></td>
+                                <td><span th:text="${balance}"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Modré tlačítko místo odkazu -->
+                        <div class="text-center mt-3">
+                            <button class="btn btn-primary" onclick="window.location.href='/'">Zpět na Přehled
+                                pokladny
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
