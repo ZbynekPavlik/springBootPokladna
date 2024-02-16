@@ -148,7 +148,7 @@ public class SaleController {
             try {
                 saleService.deleteSaleById(saleId);
                 model.addAttribute("successMessage", "Tržba byla odstraněna úspěšně.");
-            } catch (EntityNotFoundException | IllegalArgumentException e) {
+            } catch (IllegalStateException | EntityNotFoundException | IllegalArgumentException e) {
                 model.addAttribute("errorMessage", "Při odstranění tržby nastala chyba: " + e.getMessage());
             }
             return "sales/delete/deleteConfirmation";
@@ -174,7 +174,7 @@ public class SaleController {
             try {
                 saleService.deleteSaleById(saleId); // Odstraní prodej podle ID
                 model.addAttribute("successMessage", "Tržba byla odstraněna úspěšně.");
-            } catch (EntityNotFoundException | IllegalArgumentException e) {
+            } catch (IllegalStateException | EntityNotFoundException | IllegalArgumentException e) {
                 model.addAttribute("errorMessage", "Při odstranění tržby nastala chyba: " + e.getMessage());
             }
             return "sales/delete/deleteConfirmation";
