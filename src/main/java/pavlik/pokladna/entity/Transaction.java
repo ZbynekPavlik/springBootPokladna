@@ -14,7 +14,7 @@ public class Transaction {
     @Column(name = "id_transaction")
     private Integer idTransaction;
 
-    @Column(name = "description", columnDefinition = "string")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "amount")
