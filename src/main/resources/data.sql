@@ -12,7 +12,7 @@ INSERT INTO public.sales (id_sale, amount, sold_goods, user_id) VALUES
 (-4, 4000, 'mobil', -2),
 (-3, 10000, 'televize', -2);
 
-INSERT INTO public.financialtransaction (id_transaction, amount, balance_after, balance_before, deleted, description, sale_id, user_id) VALUES
+INSERT INTO public.financialtransaction (id_transaction, amount, balance_before, balance_after, deleted, description, sale_id, user_id) VALUES
 (-10, 4000, 0, 4000, 'f', 'Nová tržba - prodané zboží: mobil', -4, -2),
 (-8, -2000, 5000, 3000, 'f', 'Výběr peněz z pokladny', NULL, -2),
 (-7, 10000, 3000, 13000, 'f', 'Nová tržba - prodané zboží: televize', -3, -2),
