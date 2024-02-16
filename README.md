@@ -25,7 +25,8 @@ Heslo: a
 Jméno: Admin
 Heslo: b
 
-Pro datábazi jsem použil PostgreSQL.
+Pro datábazi jsem použil PostgreSQL. 
+Při spuštení aplikace se automatický vloží ukázková data, která mají záporné indexy.
 
 ## Struktura databáze
 
